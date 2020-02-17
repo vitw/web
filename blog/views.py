@@ -8,6 +8,7 @@ from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from .forms import CommentForm
 
+
 # Create your views here.
 def leave_comment(request,article_id):
 	if request.method == "POST":
@@ -34,6 +35,7 @@ def leave_comment(request,article_id):
 
 def blog(request):
 	last_articles = Article.objects.order_by('-date')[:5]
+	print('from some_brach')
 	return render(request,'blog.html',context = {'articles':last_articles})
 
 
@@ -67,7 +69,7 @@ def logout_request(request):
 	messages.success(request,'Bye!')
 	return redirect('articles:blog')
 
-	
+
 def login_request(request):
 	if request.method == 'POST':
 		form = AuthenticationForm(request,request.POST)
