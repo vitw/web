@@ -21,7 +21,7 @@ def leave_comment(request,article_id):
 		form = PostForm()
 	return render(request, 'blog/details.html', {'form': form})
 
-		
+
 	# article = Article.objects.get(id=article_id)
  #    if request.method == "POST":
  #        form = CommentForm(request.POST)
@@ -35,12 +35,16 @@ def leave_comment(request,article_id):
 def blog(request):
 	last_articles = Article.objects.order_by('-date')[:5]
 	return render(request,'blog.html',context = {'articles':last_articles})
+
+
 def detail(request, article_id):
 	try:
 		a = Article.objects.get(id =article_id)
 	except:
 		raise Http404('Not found')
 	return render(request,'details.html',{"article":a})
+
+
 def register(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
@@ -56,10 +60,14 @@ def register(request):
 
 	form = UserCreationForm
 	return render(request,'register.html',{'form':form})
+
+
 def logout_request(request):
 	logout(request)
 	messages.success(request,'Bye!')
 	return redirect('articles:blog')
+
+	
 def login_request(request):
 	if request.method == 'POST':
 		form = AuthenticationForm(request,request.POST)
