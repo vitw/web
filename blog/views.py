@@ -11,16 +11,15 @@ from .forms import CommentForm
 
 # Create your views here.
 def leave_comment(request,article_id):
+	art = Article.objects.get(id=article_id)
 	if request.method == "POST":
-		form = CommentForm()
-		if form.is_valid():
-			post = form.save(commit=False)
-			post.date = timezone.now()
-			post.save()
-			return redirect('blog/details.html', pk=article_id)
-	else:
-		form = PostForm()
-	return render(request, 'blog/details.html', {'form': form})
+		if request.POST:
+			text = request.POST.get('comment')
+			art.comment_set.create(text=text,date=timezone.now())
+
+			return redirect('details.html',pk = article_id)
+
+	return render(request, 'details.html', {'comments': Comment.objects.filter(article = article_id)})
 
 
 	# article = Article.objects.get(id=article_id)

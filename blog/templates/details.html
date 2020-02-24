@@ -7,13 +7,16 @@
 	<em>{{article.date}}</em>
 	<hr>
 
-	<hr>
+
 
 	<form  method ='POST' action="{% url 'articles:leave_comment' article.id %}">
 		{% csrf_token %}
-		{{form.as_p}}
+		<label for="your_comment">Your comment: </label>
+		<input id="comment" type="text" name="comment" maxlength="200" required>
+
 		<button type="submit">Leave a comment</button>
 	</form>
+	<hr>
 	{%for i in comments%}
 		<h2>{{i.text}}</h2>
 	{% endfor %}

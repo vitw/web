@@ -1,8 +1,6 @@
-from django import forms 
-from .models import Article,Comment
+from django import forms
 
-class CommentForm(forms.ModelForm):
-	class Meta:
-		model = Comment 
-		fields =['text']
-    
+
+
+class CommentForm(forms.Form):
+	text = forms.CharField(label = 'Your comment',max_length = 200)
